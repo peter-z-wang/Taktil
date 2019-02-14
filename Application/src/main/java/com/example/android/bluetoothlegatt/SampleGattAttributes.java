@@ -30,6 +30,9 @@ public class SampleGattAttributes {
         // Sample Services.
         attributes.put("0000180d-0000-1000-8000-00805f9b34fb", "Heart Rate Service");
         attributes.put("0000180a-0000-1000-8000-00805f9b34fb", "Device Information Service");
+        attributes.put("f0001120-0451-4000-b000-000000000000",  "Buttons");
+        attributes.put("f0001121-0451-4000-b000-000000000000",  "Button 1");
+        attributes.put("f0001122-0451-4000-b000-000000000000",  "Button 2");
         // Sample Characteristics.
         attributes.put(HEART_RATE_MEASUREMENT, "Heart Rate Measurement");
         attributes.put("00002a29-0000-1000-8000-00805f9b34fb", "Manufacturer Name String");
