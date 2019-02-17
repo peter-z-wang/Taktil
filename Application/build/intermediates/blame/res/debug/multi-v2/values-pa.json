@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\AznIn\\AndroidStudioProjects\\android-BluetoothLeGatt\\Application\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-pa\\values-pa.xml",
+            "outputFile": "C:\\Users\\AznIn\\AndroidStudioProjects\\android-BluetoothLeGatt-fork\\Application\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-pa\\values-pa.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\AznIn\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.0.2.aar\\d6d21c557ccd6018fcb52a13a442351c\\res\\values-pa\\values-pa.xml",
+                    "source": "C:\\Users\\AznIn\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.0.2.aar\\7cebd677d37ddad5193c54395002d945\\res\\values-pa\\values-pa.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\AznIn\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.0.2.aar\\79c4e64d694fc7b00f7bd4c0f5107e85\\res\\values-pa\\values-pa.xml",
+                    "source": "C:\\Users\\AznIn\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.0.2.aar\\c346b1c6e742ddfbab3911b98444efe8\\res\\values-pa\\values-pa.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",

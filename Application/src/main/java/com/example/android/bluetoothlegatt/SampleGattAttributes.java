@@ -24,6 +24,8 @@ import java.util.HashMap;
 public class SampleGattAttributes {
     private static HashMap<String, String> attributes = new HashMap();
     public static String HEART_RATE_MEASUREMENT = "00002a37-0000-1000-8000-00805f9b34fb";
+    public static String Button_1 = "f0001121-0451-4000-b000-000000000000";
+    public static String Button_2 = "f0001122-0451-4000-b000-000000000000";
     public static String CLIENT_CHARACTERISTIC_CONFIG = "00002902-0000-1000-8000-00805f9b34fb";
 
     static {
@@ -34,6 +36,7 @@ public class SampleGattAttributes {
         attributes.put("f0001121-0451-4000-b000-000000000000",  "Button 1");
         attributes.put("f0001122-0451-4000-b000-000000000000",  "Button 2");
         // Sample Characteristics.
+        attributes.put(Button_1, "Button 1");
         attributes.put(HEART_RATE_MEASUREMENT, "Heart Rate Measurement");
         attributes.put("00002a29-0000-1000-8000-00805f9b34fb", "Manufacturer Name String");
     }
