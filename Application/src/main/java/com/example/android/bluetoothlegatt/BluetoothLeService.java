@@ -118,8 +118,17 @@ public class BluetoothLeService extends Service {
         public void onCharacteristicChanged(BluetoothGatt gatt,
                                             BluetoothGattCharacteristic characteristic) {
             broadcastUpdate(ACTION_DATA_AVAILABLE, characteristic);
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
-            startActivity(browserIntent);
+            Intent chromeIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
+            Intent instagramIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.instagram.com"));
+            if (UUID_BUTTON_1.equals(characteristic.getUuid())) {
+                startActivity(chromeIntent);
+            }
+
+            else if (UUID_BUTTON_2.equals(characteristic.getUuid())){
+                startActivity(instagramIntent);
+            }
+
+
         }
     };
 
@@ -310,7 +319,7 @@ public class BluetoothLeService extends Service {
                     UUID.fromString(SampleGattAttributes.CLIENT_CHARACTERISTIC_CONFIG));
             descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
             mBluetoothGatt.writeDescriptor(descriptor);
-            
+
         }
     }
 
