@@ -623,6 +623,7 @@ id async
 id beginning
 id blocking
 id bottom
+id button2
 id buttonPanel
 id cancel_action
 id checkbox
@@ -754,6 +755,7 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout actionbar_indeterminate_progress
+layout button_layout
 layout gatt_services_characteristics
 layout listitem_device
 layout notification_action

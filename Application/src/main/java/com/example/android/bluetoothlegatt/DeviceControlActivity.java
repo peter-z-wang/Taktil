@@ -26,6 +26,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
@@ -72,10 +73,41 @@ public class DeviceControlActivity extends Activity {
     public final static UUID Button_1 =
             UUID.fromString(SampleGattAttributes.Button_1);
 
+
+    public void onClickRed(View v){
+       Intent googleintent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
+        if(mBluetoothLeService != null) {
+            mBluetoothLeService.writeRedCharacteristic(0x30);
+            startActivity(googleintent);
+        }
+    }
+
+    public void onClickGreen(View v){
+        if(mBluetoothLeService != null) {
+            mBluetoothLeService.writeGreenCharacteristic(0x30);
+        }
+    }
+
+    public void onClickOffRed(View v){
+        if(mBluetoothLeService != null) {
+            mBluetoothLeService.writeRedCharacteristic(0x00);
+        }
+    }
+
+    public void onClickOffGreen(View v){
+        if(mBluetoothLeService != null) {
+            mBluetoothLeService.writeGreenCharacteristic(0x00);
+        }
+    }
+
+    public void onClickRead(View v){
+        if(mBluetoothLeService != null) {
+            mBluetoothLeService.readCustomCharacteristic();
+        }
+    }
+
     // Code to manage Service lifecycle.
     private final ServiceConnection mServiceConnection = new ServiceConnection() {
-
-        @Override
         public void onServiceConnected(ComponentName componentName, IBinder service) {
             mBluetoothLeService = ((BluetoothLeService.LocalBinder) service).getService();
             if (!mBluetoothLeService.initialize()) {
@@ -113,7 +145,7 @@ public class DeviceControlActivity extends Activity {
                 clearUI();
             } else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
                 // Show all the supported services and characteristics on the user interface.
-                displayGattServices(mBluetoothLeService.getSupportedGattServices());
+               // displayGattServices(mBluetoothLeService.getSupportedGattServices());
             } else if (ACTION_DATA_AVAILABLE.equals(action)) {
                 displayData(intent.getStringExtra(BluetoothLeService.EXTRA_DATA));
 
@@ -157,25 +189,26 @@ public class DeviceControlActivity extends Activity {
 
 
     private void clearUI() {
-        mGattServicesList.setAdapter((SimpleExpandableListAdapter) null);
+       // mGattServicesList.setAdapter((SimpleExpandableListAdapter) null);
         mDataField.setText(R.string.no_data);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.gatt_services_characteristics);
+        setContentView(R.layout.button_layout);
 
         final Intent intent = getIntent();
         mDeviceName = intent.getStringExtra(EXTRAS_DEVICE_NAME);
         mDeviceAddress = intent.getStringExtra(EXTRAS_DEVICE_ADDRESS);
 
         // Sets up UI references.
-
+        /*
         ((TextView) findViewById(R.id.device_address)).setText(mDeviceAddress);
         mGattServicesList = (ExpandableListView) findViewById(R.id.gatt_services_list);
         mGattServicesList.setOnChildClickListener(servicesListClickListner);
         mConnectionState = (TextView) findViewById(R.id.connection_state);
+        */
         mDataField = (TextView) findViewById(R.id.data_value);
 
 
@@ -241,7 +274,7 @@ public class DeviceControlActivity extends Activity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mConnectionState.setText(resourceId);
+               // mConnectionState.setText(resourceId);
             }
         });
     }

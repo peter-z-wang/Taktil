@@ -26,12 +26,19 @@ public class SampleGattAttributes {
     public static String HEART_RATE_MEASUREMENT = "00002a37-0000-1000-8000-00805f9b34fb";
     public static String Button_1 = "f0001121-0451-4000-b000-000000000000";
     public static String Button_2 = "f0001122-0451-4000-b000-000000000000";
+    public static String Red_LED = "f0001111-0451-4000-b000-000000000000";
     public static String CLIENT_CHARACTERISTIC_CONFIG = "00002902-0000-1000-8000-00805f9b34fb";
 
     static {
         // Sample Services.
         attributes.put("0000180d-0000-1000-8000-00805f9b34fb", "Heart Rate Service");
         attributes.put("0000180a-0000-1000-8000-00805f9b34fb", "Device Information Service");
+        attributes.put("00001800-0000-1000-8000-00805f9b34fb",  "Taktil");
+
+        attributes.put("f0001110-0451-4000-b000-000000000000",  "LED");
+        attributes.put("f0001111-0451-4000-b000-000000000000",  "Red");
+        attributes.put("f0001112-0451-4000-b000-000000000000",  "Green");
+
         attributes.put("f0001120-0451-4000-b000-000000000000",  "Buttons");
         attributes.put("f0001121-0451-4000-b000-000000000000",  "Button 1");
         attributes.put("f0001122-0451-4000-b000-000000000000",  "Button 2");

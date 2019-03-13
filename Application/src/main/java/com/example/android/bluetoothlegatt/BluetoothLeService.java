@@ -73,6 +73,9 @@ public class BluetoothLeService extends Service {
     public final static UUID UUID_BUTTON_2 =
             UUID.fromString(SampleGattAttributes.Button_2);
 
+    public final static UUID UUID_RED =
+            UUID.fromString(SampleGattAttributes.Red_LED);
+
     // Implements callback methods for GATT events that the app cares about.  For example,
     // connection change and services discovered.
     private final BluetoothGattCallback mGattCallback = new BluetoothGattCallback() {
@@ -333,5 +336,61 @@ public class BluetoothLeService extends Service {
         if (mBluetoothGatt == null) return null;
 
         return mBluetoothGatt.getServices();
+    }
+
+    public void readCustomCharacteristic() {
+        if (mBluetoothAdapter == null || mBluetoothGatt == null) {
+            Log.w(TAG, "BluetoothAdapter not initialized");
+            return;
+        }
+        /*check if the service is available on the device*/
+        BluetoothGattService mCustomService = mBluetoothGatt.getService(UUID.fromString("00001800-0000-1000-8000-00805f9b34fb"));
+        if(mCustomService == null){
+            Log.w(TAG, "Custom BLE Service not found");
+            return;
+        }
+        /*get the read characteristic from the service*/
+        BluetoothGattCharacteristic mReadCharacteristic = mCustomService.getCharacteristic(UUID.fromString("f0001111-0451-4000-b000-000000000000"));
+        if(mBluetoothGatt.readCharacteristic(mReadCharacteristic) == false){
+            Log.w(TAG, "Failed to read characteristic");
+        }
+    }
+
+    public void writeRedCharacteristic(int value) {
+        if (mBluetoothAdapter == null || mBluetoothGatt == null) {
+            Log.w(TAG, "BluetoothAdapter not initialized");
+            return;
+        }
+        /*check if the service is available on the device*/
+        BluetoothGattService mCustomService = mBluetoothGatt.getService(UUID.fromString("f0001110-0451-4000-b000-000000000000"));
+        if(mCustomService == null){
+            Log.w(TAG, "Custom BLE Service not found");
+            return;
+        }
+        /*get the read characteristic from the service*/
+        BluetoothGattCharacteristic mWriteCharacteristic = mCustomService.getCharacteristic(UUID.fromString("f0001111-0451-4000-b000-000000000000"));
+        mWriteCharacteristic.setValue(value,android.bluetooth.BluetoothGattCharacteristic.FORMAT_UINT8,0);
+        if(mBluetoothGatt.writeCharacteristic(mWriteCharacteristic) == false){
+            Log.w(TAG, "Failed to write characteristic");
+        }
+    }
+
+    public void writeGreenCharacteristic(int value) {
+        if (mBluetoothAdapter == null || mBluetoothGatt == null) {
+            Log.w(TAG, "BluetoothAdapter not initialized");
+            return;
+        }
+        /*check if the service is available on the device*/
+        BluetoothGattService mCustomService = mBluetoothGatt.getService(UUID.fromString("f0001110-0451-4000-b000-000000000000"));
+        if(mCustomService == null){
+            Log.w(TAG, "Custom BLE Service not found");
+            return;
+        }
+        /*get the read characteristic from the service*/
+        BluetoothGattCharacteristic mWriteCharacteristic = mCustomService.getCharacteristic(UUID.fromString("f0001112-0451-4000-b000-000000000000"));
+        mWriteCharacteristic.setValue(value,android.bluetooth.BluetoothGattCharacteristic.FORMAT_UINT8,0);
+        if(mBluetoothGatt.writeCharacteristic(mWriteCharacteristic) == false){
+            Log.w(TAG, "Failed to write characteristic");
+        }
     }
 }
