@@ -17,7 +17,6 @@
 package com.example.android.bluetoothlegatt;
 
 import android.app.Activity;
-import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattService;
 import android.content.BroadcastReceiver;
@@ -80,6 +79,14 @@ public class DeviceControlActivity extends Activity {
             mBluetoothLeService.writeRedCharacteristic(0x30);
             startActivity(googleintent);
         }
+    }
+
+    public void onClickOff(View v){
+        mBluetoothLeService.writeRedCharacteristic(0x00);
+    }
+    public void onClickSettings(View v){
+        Intent settingsintent = new Intent(this, SettingsActivity.class);
+        startActivity(settingsintent);
     }
 
     public void onClickGreen(View v){
