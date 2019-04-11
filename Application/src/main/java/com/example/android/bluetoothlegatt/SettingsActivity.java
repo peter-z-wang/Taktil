@@ -66,6 +66,11 @@ public class SettingsActivity extends Activity {
         }
     }
 
+    public void BluetoothOnClick(View view) {
+        Intent pairIntent = new Intent(this, DeviceScanActivity.class);
+        startActivity(pairIntent);
+    }
+
     public void SettingsOn(View view) {
         mBluetoothLeService.writeRedCharacteristic(0x30);
     }

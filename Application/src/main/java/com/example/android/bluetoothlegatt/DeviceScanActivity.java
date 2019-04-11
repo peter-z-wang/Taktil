@@ -60,7 +60,8 @@ public class DeviceScanActivity extends ListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActionBar().setTitle(R.string.title_devices);
+        getActionBar().setTitle("Available Devices");
+        getActionBar().setDisplayHomeAsUpEnabled(true);
         mHandler = new Handler();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

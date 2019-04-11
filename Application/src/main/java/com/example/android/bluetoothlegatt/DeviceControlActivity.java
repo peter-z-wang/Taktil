@@ -25,6 +25,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -33,6 +36,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
 
@@ -73,17 +77,27 @@ public class DeviceControlActivity extends Activity {
             UUID.fromString(SampleGattAttributes.Button_1);
 
 
-    public void onClickRed(View v){
-       Intent googleintent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
+    public void onClickChrome(View v){
+        Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.android.chrome");
         if(mBluetoothLeService != null) {
             mBluetoothLeService.writeRedCharacteristic(0x30);
-            startActivity(googleintent);
+            startActivity(launchIntent);
+        }
+    }
+
+    public void onClickInstagram(View v){
+        Intent instagramIntent = getPackageManager().getLaunchIntentForPackage("com.instagram.android");
+        if(mBluetoothLeService != null) {
+            mBluetoothLeService.writeGreenCharacteristic(0x30);
+            startActivity(instagramIntent);
         }
     }
 
     public void onClickOff(View v){
-        mBluetoothLeService.writeRedCharacteristic(0x00);
+        mBluetoothLeService.writeGreenCharacteristic(0x00);
+        mBluetoothLeService.writeGreenCharacteristic(0x00);
     }
+
     public void onClickSettings(View v){
         Intent settingsintent = new Intent(this, SettingsActivity.class);
         startActivity(settingsintent);
@@ -200,14 +214,34 @@ public class DeviceControlActivity extends Activity {
         mDataField.setText(R.string.no_data);
     }
 
+    //Get Chrome button
+    public Drawable getActivityIcon(String packageName, String activityName) {
+        PackageManager pm = getPackageManager();
+        Intent intent = new Intent();
+        intent.setComponent(new ComponentName(packageName, activityName));
+        ResolveInfo resolveInfo = pm.resolveActivity(intent, 0);
+
+        return resolveInfo.loadIcon(pm);
+    }
+
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.button_layout);
 
         final Intent intent = getIntent();
         mDeviceName = intent.getStringExtra(EXTRAS_DEVICE_NAME);
         mDeviceAddress = intent.getStringExtra(EXTRAS_DEVICE_ADDRESS);
+
+        //Chrome Button Set Icon
+        ImageView chromeIcon = findViewById(R.id.chromeButton);
+        chromeIcon.setImageDrawable(getActivityIcon("com.android.chrome", "com.google.android.apps.chrome.Main"));
+
+        ImageView instagramIcon = findViewById(R.id.instagramButton);
+        instagramIcon.setImageDrawable(getActivityIcon("com.instagram.android", "com.instagram.android.activity.MainTabActivity"));
 
         // Sets up UI references.
         /*
@@ -219,8 +253,8 @@ public class DeviceControlActivity extends Activity {
         mDataField = (TextView) findViewById(R.id.data_value);
 
 
-        getActionBar().setTitle(mDeviceName);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setTitle("Taktil");
+        getActionBar().setDisplayHomeAsUpEnabled(false);
         Intent gattServiceIntent = new Intent(this, BluetoothLeService.class);
         bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
     }
