@@ -16,9 +16,14 @@
 
 package com.example.android.bluetoothlegatt;
 
+import android.Manifest;
 import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCharacteristic;
+import android.bluetooth.BluetoothGattDescriptor;
 import android.bluetooth.BluetoothGattService;
+import android.bluetooth.BluetoothManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -29,16 +34,20 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,6 +55,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static com.example.android.bluetoothlegatt.BluetoothLeService.ACTION_DATA_AVAILABLE;
+import static com.example.android.bluetoothlegatt.DeviceScanActivity.PERMISSION_REQUEST_COARSE_LOCATION;
 
 /**
  * For a given BLE device, this Activity provides the user interface to connect, display data,
@@ -54,27 +64,38 @@ import static com.example.android.bluetoothlegatt.BluetoothLeService.ACTION_DATA
  * Bluetooth LE API.
  */
 public class DeviceControlActivity extends Activity {
+    //Initialize
     private final static String TAG = DeviceControlActivity.class.getSimpleName();
 
     public static final String EXTRAS_DEVICE_NAME = "DEVICE_NAME";
     public static final String EXTRAS_DEVICE_ADDRESS = "DEVICE_ADDRESS";
 
+    private DeviceScanActivity.LeDeviceListAdapter mLeDeviceListAdapter;
+
     private TextView mConnectionState;
     private TextView mDataField;
     private String mDeviceName;
+    private BluetoothGatt mBluetoothGatt;
     private String mDeviceAddress;
     private ExpandableListView mGattServicesList;
     private BluetoothLeService mBluetoothLeService;
     private ArrayList<ArrayList<BluetoothGattCharacteristic>> mGattCharacteristics =
             new ArrayList<ArrayList<BluetoothGattCharacteristic>>();
     private boolean mConnected = false;
+    private BluetoothAdapter mBluetoothAdapter;
+    private Handler mHandler;
     private BluetoothGattCharacteristic mNotifyCharacteristic;
 
     private final String LIST_NAME = "NAME";
     private final String LIST_UUID = "UUID";
+    private BluetoothGatt bluetoothGatt;
+    BluetoothGattCharacteristic characteristic;
+    boolean enabled;
 
     public final static UUID Button_1 =
             UUID.fromString(SampleGattAttributes.Button_1);
+
+    //public static String device_context = "Taktil";
 
 
     public void onClickChrome(View v){
@@ -168,11 +189,13 @@ public class DeviceControlActivity extends Activity {
                 // Show all the supported services and characteristics on the user interface.
                // displayGattServices(mBluetoothLeService.getSupportedGattServices());
             } else if (ACTION_DATA_AVAILABLE.equals(action)) {
-                displayData(intent.getStringExtra(BluetoothLeService.EXTRA_DATA));
+                //displayData(intent.getStringExtra(BluetoothLeService.EXTRA_DATA));
 
             }
         }
     };
+
+
 
     // If a given GATT characteristic is selected, check for supported features.  This sample
     // demonstrates 'Read' and 'Notify' features.  See
@@ -181,6 +204,7 @@ public class DeviceControlActivity extends Activity {
     private final ExpandableListView.OnChildClickListener servicesListClickListner =
             new ExpandableListView.OnChildClickListener() {
                 @Override
+
                 public boolean onChildClick(ExpandableListView parent, View v, int groupPosition,
                                             int childPosition, long id) {
                     if (mGattCharacteristics != null) {
@@ -214,6 +238,8 @@ public class DeviceControlActivity extends Activity {
         mDataField.setText(R.string.no_data);
     }
 
+
+
     //Get Chrome button
     public Drawable getActivityIcon(String packageName, String activityName) {
         PackageManager pm = getPackageManager();
@@ -226,11 +252,14 @@ public class DeviceControlActivity extends Activity {
 
 
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        BluetoothLeService.device_context = "Taktil";
         setContentView(R.layout.button_layout);
+        //setContentView(R.layout.gatt_services_characteristics);
 
         final Intent intent = getIntent();
         mDeviceName = intent.getStringExtra(EXTRAS_DEVICE_NAME);
@@ -240,27 +269,61 @@ public class DeviceControlActivity extends Activity {
         ImageView chromeIcon = findViewById(R.id.chromeButton);
         chromeIcon.setImageDrawable(getActivityIcon("com.android.chrome", "com.google.android.apps.chrome.Main"));
 
-        ImageView instagramIcon = findViewById(R.id.instagramButton);
-        instagramIcon.setImageDrawable(getActivityIcon("com.instagram.android", "com.instagram.android.activity.MainTabActivity"));
+//        ImageView instagramIcon = findViewById(R.id.instagramButton);
+//        instagramIcon.setImageDrawable(getActivityIcon("com.instagram.android", "com.instagram.android.activity.MainTabActivity"));
+
+
 
         // Sets up UI references.
-        /*
+/*
         ((TextView) findViewById(R.id.device_address)).setText(mDeviceAddress);
         mGattServicesList = (ExpandableListView) findViewById(R.id.gatt_services_list);
         mGattServicesList.setOnChildClickListener(servicesListClickListner);
         mConnectionState = (TextView) findViewById(R.id.connection_state);
-        */
         mDataField = (TextView) findViewById(R.id.data_value);
+*/
+
 
 
         getActionBar().setTitle("Taktil");
         getActionBar().setDisplayHomeAsUpEnabled(false);
         Intent gattServiceIntent = new Intent(this, BluetoothLeService.class);
         bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
+
+
+        mHandler = new Handler();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_REQUEST_COARSE_LOCATION);
+        }
+
+        // Use this check to determine whether BLE is supported on the device.  Then you can
+        // selectively disable BLE-related features.
+        if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
+            Toast.makeText(this, R.string.ble_not_supported, Toast.LENGTH_SHORT).show();
+            finish();
+        }
+
+
+        // Initializes a Bluetooth adapter.  For API level 18 and above, get a reference to
+        // BluetoothAdapter through BluetoothManager.
+        final BluetoothManager bluetoothManager =
+                (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+        mBluetoothAdapter = bluetoothManager.getAdapter();
+
+        // Checks if Bluetooth is supported on the device.
+        if (mBluetoothAdapter == null) {
+            Toast.makeText(this, R.string.error_bluetooth_not_supported, Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+
+
     }
 
     @Override
     protected void onResume() {
+        BluetoothLeService.device_context = "Taktil";
         super.onResume();
         registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
         if (mBluetoothLeService != null) {
@@ -319,13 +382,13 @@ public class DeviceControlActivity extends Activity {
             }
         });
     }
-
+/*
     private void displayData(String data) {
         if (data != null) {
             mDataField.setText(data);
         }
     }
-
+*/
     // Demonstrates how to iterate through the supported GATT Services/Characteristics.
     // In this sample, we populate the data structure that is bound to the ExpandableListView
     // on the UI.

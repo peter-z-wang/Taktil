@@ -679,6 +679,7 @@ id bottom
 id button
 id button2
 id button3
+id button4
 id buttonPanel
 id cancel_action
 id chains

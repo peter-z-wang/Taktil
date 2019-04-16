@@ -44,7 +44,14 @@
         android:layout_height="wrap_content"
         app:srcCompat="?android:attr/textSelectHandleLeft"
         style="?android:attr/borderlessButtonStyle"/>
-
+<!--
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClickRead"
+        android:text="Read" />
+-->
     <ImageButton
         android:id="@+id/instagramButton"
         style="?android:attr/borderlessButtonStyle"

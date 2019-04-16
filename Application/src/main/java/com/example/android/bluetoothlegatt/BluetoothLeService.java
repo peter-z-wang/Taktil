@@ -18,6 +18,7 @@ package com.example.android.bluetoothlegatt;
 
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothClass;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCallback;
@@ -33,6 +34,7 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -48,6 +50,8 @@ public class BluetoothLeService extends Service {
     private String mBluetoothDeviceAddress;
     private BluetoothGatt mBluetoothGatt;
     private int mConnectionState = STATE_DISCONNECTED;
+
+    public static String device_context = "Taktil";
 
     private static final int STATE_DISCONNECTED = 0;
     private static final int STATE_CONNECTING = 1;
@@ -123,13 +127,30 @@ public class BluetoothLeService extends Service {
             broadcastUpdate(ACTION_DATA_AVAILABLE, characteristic);
             Intent chromeIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
             Intent instagramIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.instagram.com"));
-            if (UUID_BUTTON_1.equals(characteristic.getUuid())) {
-                startActivity(chromeIntent);
-            }
+            if (UUID_BUTTON_2.equals(characteristic.getUuid())) {
+                int characteristic_value = characteristic.getValue()[0] & 0xff;
+                //Log.d("CHARVALUE", String.valueOf(lsb));
+                if (characteristic_value == 1) {
+                    startActivity(chromeIntent);
+                    if (device_context == "Taktil") {
+                        startActivity(chromeIntent);
+                        device_context = "Chrome";
+                    }
 
+                    else if (device_context == "Chrome") {
+                        startActivity(instagramIntent);
+                        device_context = "Taktil";
+                    }
+
+
+                }
+
+
+            }
+/*
             else if (UUID_BUTTON_2.equals(characteristic.getUuid())){
                 startActivity(instagramIntent);
-            }
+            }*/
 
 
         }
@@ -339,6 +360,7 @@ public class BluetoothLeService extends Service {
     }
 
     public void readCustomCharacteristic() {
+
         if (mBluetoothAdapter == null || mBluetoothGatt == null) {
             Log.w(TAG, "BluetoothAdapter not initialized");
             return;
