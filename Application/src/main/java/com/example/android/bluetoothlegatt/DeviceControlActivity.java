@@ -265,12 +265,14 @@ public class DeviceControlActivity extends Activity {
         mDeviceName = intent.getStringExtra(EXTRAS_DEVICE_NAME);
         mDeviceAddress = intent.getStringExtra(EXTRAS_DEVICE_ADDRESS);
 
+ //       mBluetoothLeService.setCharacteristicNotification(mNotifyCharacteristic, true);
+
         //Chrome Button Set Icon
         ImageView chromeIcon = findViewById(R.id.chromeButton);
         chromeIcon.setImageDrawable(getActivityIcon("com.android.chrome", "com.google.android.apps.chrome.Main"));
 
-//        ImageView instagramIcon = findViewById(R.id.instagramButton);
-//        instagramIcon.setImageDrawable(getActivityIcon("com.instagram.android", "com.instagram.android.activity.MainTabActivity"));
+        ImageView instagramIcon = findViewById(R.id.instagramButton);
+        instagramIcon.setImageDrawable(getActivityIcon("com.instagram.android", "com.instagram.android.activity.MainTabActivity"));
 
 
 

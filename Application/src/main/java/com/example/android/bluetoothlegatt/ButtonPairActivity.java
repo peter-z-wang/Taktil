@@ -122,6 +122,11 @@ public class ButtonPairActivity extends Activity {
         }
     };
 
+    public void listClicker(View view){
+        mGattServicesList.performItemClick(mGattServicesList, 4, 2);
+        mGattServicesList.getExpandableListAdapter().getChildView(4, 1 ,
+                true, null, null).findViewById(1).performClick();
+    }
     // If a given GATT characteristic is selected, check for supported features.  This sample
     // demonstrates 'Read' and 'Notify' features.  See
     // http://d.android.com/reference/android/bluetooth/BluetoothGatt.html for the complete
@@ -138,6 +143,8 @@ public class ButtonPairActivity extends Activity {
                         if ((charaProp | BluetoothGattCharacteristic.PROPERTY_READ) > 0) {
                             // If there is an active notification on a characteristic, clear
                             // it first so it doesn't update the data field on the user interface.
+                            //listClicker();
+
                             if (mNotifyCharacteristic != null) {
                                 mBluetoothLeService.setCharacteristicNotification(
                                         mNotifyCharacteristic, true);
@@ -194,6 +201,7 @@ public class ButtonPairActivity extends Activity {
         getActionBar().setDisplayHomeAsUpEnabled(true);
         Intent gattServiceIntent = new Intent(this, BluetoothLeService.class);
         bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
+
     }
 
     @Override

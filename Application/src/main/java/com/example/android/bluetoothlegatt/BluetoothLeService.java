@@ -80,6 +80,8 @@ public class BluetoothLeService extends Service {
     public final static UUID UUID_RED =
             UUID.fromString(SampleGattAttributes.Red_LED);
 
+    public final static UUID UUID_TOUCHPAD = UUID.fromString(SampleGattAttributes.Touchpad);
+
     // Implements callback methods for GATT events that the app cares about.  For example,
     // connection change and services discovered.
     private final BluetoothGattCallback mGattCallback = new BluetoothGattCallback() {
@@ -125,13 +127,47 @@ public class BluetoothLeService extends Service {
         public void onCharacteristicChanged(BluetoothGatt gatt,
                                             BluetoothGattCharacteristic characteristic) {
             broadcastUpdate(ACTION_DATA_AVAILABLE, characteristic);
-            Intent chromeIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
-            Intent instagramIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.instagram.com"));
+            Intent chromeIntent = getPackageManager().getLaunchIntentForPackage("com.android.chrome");
+            Intent instagramIntent = getPackageManager().getLaunchIntentForPackage("com.instagram.android");
+            Intent mailIntent = getPackageManager().getLaunchIntentForPackage("com.google.android.gm");
+            Intent taktilIntent = new Intent(BluetoothLeService.this, DeviceControlActivity.class);
+
+            if (UUID_TOUCHPAD.equals(characteristic.getUuid())) {
+                int touchpad_value = characteristic.getValue()[0];
+                Log.d("CHARVALUE", String.valueOf(touchpad_value));
+
+                if (touchpad_value == 1 || touchpad_value == 2){
+                    startActivity(chromeIntent);
+                    pulseMotor();
+                }
+
+                else if (touchpad_value == 5 || touchpad_value == 6){
+                    startActivity(taktilIntent);
+                    pulseMotor();
+                }
+
+                else if (touchpad_value == 9 || touchpad_value == 10){
+                    startActivity(mailIntent);
+                    pulseMotor();   
+                }
+
+                else if (touchpad_value == 13 || touchpad_value == 14) {
+                    startActivity(instagramIntent);
+                    pulseMotor();
+                }
+
+                else if (touchpad_value == 0){
+                    stopMotor();
+                }
+
+            }
+
+            //Button 1 for Taktil Button 2 for ProjectZero
+
             if (UUID_BUTTON_2.equals(characteristic.getUuid())) {
                 int characteristic_value = characteristic.getValue()[0] & 0xff;
                 //Log.d("CHARVALUE", String.valueOf(lsb));
                 if (characteristic_value == 1) {
-                    startActivity(chromeIntent);
                     if (device_context == "Taktil") {
                         startActivity(chromeIntent);
                         device_context = "Chrome";
@@ -139,14 +175,15 @@ public class BluetoothLeService extends Service {
 
                     else if (device_context == "Chrome") {
                         startActivity(instagramIntent);
-                        device_context = "Taktil";
+                        device_context = "Instagram";
                     }
 
-
+                    else if (device_context == "Instagram") {
+                        startActivity(taktilIntent);
+                    }
                 }
-
-
             }
+
 /*
             else if (UUID_BUTTON_2.equals(characteristic.getUuid())){
                 startActivity(instagramIntent);
@@ -155,6 +192,14 @@ public class BluetoothLeService extends Service {
 
         }
     };
+
+    public void pulseMotor(){
+        writeRedCharacteristic(0x30);
+    }
+
+    public void stopMotor(){
+        writeRedCharacteristic(0x00);
+    }
 
     private void broadcastUpdate(final String action) {
         final Intent intent = new Intent(action);
@@ -343,7 +388,12 @@ public class BluetoothLeService extends Service {
                     UUID.fromString(SampleGattAttributes.CLIENT_CHARACTERISTIC_CONFIG));
             descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
             mBluetoothGatt.writeDescriptor(descriptor);
-
+        }
+        else if (UUID_TOUCHPAD.equals(characteristic.getUuid())) {
+            BluetoothGattDescriptor descriptor = characteristic.getDescriptor(
+                    UUID.fromString(SampleGattAttributes.CLIENT_CHARACTERISTIC_CONFIG));
+            descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
+            mBluetoothGatt.writeDescriptor(descriptor);
         }
     }
 
@@ -392,9 +442,11 @@ public class BluetoothLeService extends Service {
         /*get the read characteristic from the service*/
         BluetoothGattCharacteristic mWriteCharacteristic = mCustomService.getCharacteristic(UUID.fromString("f0001111-0451-4000-b000-000000000000"));
         mWriteCharacteristic.setValue(value,android.bluetooth.BluetoothGattCharacteristic.FORMAT_UINT8,0);
+
         if(mBluetoothGatt.writeCharacteristic(mWriteCharacteristic) == false){
             Log.w(TAG, "Failed to write characteristic");
         }
+        return;
     }
 
     public void writeGreenCharacteristic(int value) {
@@ -414,5 +466,6 @@ public class BluetoothLeService extends Service {
         if(mBluetoothGatt.writeCharacteristic(mWriteCharacteristic) == false){
             Log.w(TAG, "Failed to write characteristic");
         }
+        return;
     }
 }
