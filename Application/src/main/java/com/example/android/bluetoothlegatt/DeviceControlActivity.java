@@ -38,6 +38,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -97,21 +98,35 @@ public class DeviceControlActivity extends Activity {
 
     //public static String device_context = "Taktil";
 
+    public void onClickPhone(View v) {
+        Intent callIntent = new Intent(Intent.ACTION_DIAL);
+        BluetoothLeService.device_context="Phone";
+        startActivity(callIntent);
+    }
+
+    public void onClickSMS(View v){
+        Intent textIntent = getPackageManager().getLaunchIntentForPackage("com.facebook.orca");
+        BluetoothLeService.device_context="SMS";
+        startActivity(textIntent);
+    }
 
     public void onClickChrome(View v){
         Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.android.chrome");
-        if(mBluetoothLeService != null) {
-            mBluetoothLeService.writeRedCharacteristic(0x30);
-            startActivity(launchIntent);
-        }
+        BluetoothLeService.device_context="Chrome";
+        startActivity(launchIntent);
     }
 
-    public void onClickInstagram(View v){
-        Intent instagramIntent = getPackageManager().getLaunchIntentForPackage("com.instagram.android");
-        if(mBluetoothLeService != null) {
-            mBluetoothLeService.writeGreenCharacteristic(0x30);
-            startActivity(instagramIntent);
-        }
+    public void onClickCamera(View v){
+        Intent cameraIntent = getPackageManager().getLaunchIntentForPackage(
+                "com.sec.android.app.camera");
+        BluetoothLeService.device_context="Camera";
+        startActivity(cameraIntent);
+
+    }
+
+    public void onClickMail(View v){
+        Intent mailIntent = getPackageManager().getLaunchIntentForPackage("com.google.android.gm");
+        startActivity(mailIntent);
     }
 
     public void onClickOff(View v){
@@ -121,6 +136,7 @@ public class DeviceControlActivity extends Activity {
 
     public void onClickSettings(View v){
         Intent settingsintent = new Intent(this, SettingsActivity.class);
+        BluetoothLeService.device_context="Settings";
         startActivity(settingsintent);
     }
 
@@ -257,6 +273,7 @@ public class DeviceControlActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActionBar().hide();
+
 
         BluetoothLeService.device_context = "Taktil";
         setContentView(R.layout.button_layout);

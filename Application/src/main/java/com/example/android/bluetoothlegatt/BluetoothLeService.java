@@ -127,9 +127,12 @@ public class BluetoothLeService extends Service {
         public void onCharacteristicChanged(BluetoothGatt gatt,
                                             BluetoothGattCharacteristic characteristic) {
             broadcastUpdate(ACTION_DATA_AVAILABLE, characteristic);
-            Intent chromeIntent = getPackageManager().getLaunchIntentForPackage("com.android.chrome");
-            Intent instagramIntent = getPackageManager().getLaunchIntentForPackage("com.instagram.android");
-            Intent mailIntent = getPackageManager().getLaunchIntentForPackage("com.google.android.gm");
+            Intent chromeIntent = getPackageManager().getLaunchIntentForPackage(
+                    "com.android.chrome");
+            Intent cameraIntent = getPackageManager().getLaunchIntentForPackage(
+                    "com.sec.android.app.camera");
+            Intent mailIntent = getPackageManager().getLaunchIntentForPackage(
+                    "com.google.android.gm");
             Intent taktilIntent = new Intent(BluetoothLeService.this, DeviceControlActivity.class);
 
             if (UUID_TOUCHPAD.equals(characteristic.getUuid())) {
@@ -138,21 +141,25 @@ public class BluetoothLeService extends Service {
 
                 if (touchpad_value == 1 || touchpad_value == 2){
                     startActivity(chromeIntent);
+                    device_context="Chrome";
                     pulseMotor();
                 }
 
                 else if (touchpad_value == 5 || touchpad_value == 6){
                     startActivity(taktilIntent);
+                    device_context="Taktil";
                     pulseMotor();
                 }
 
                 else if (touchpad_value == 9 || touchpad_value == 10){
                     startActivity(mailIntent);
+                    device_context="Mail";
                     pulseMotor();
                 }
 
                 else if (touchpad_value == 13 || touchpad_value == 14) {
-                    startActivity(instagramIntent);
+                    startActivity(cameraIntent);
+                    device_context="Camera";
                     pulseMotor();
                 }
 
@@ -163,7 +170,6 @@ public class BluetoothLeService extends Service {
             }
 
             //Button 1 for Taktil Button 2 for ProjectZero
-
             if (UUID_BUTTON_2.equals(characteristic.getUuid())) {
                 int characteristic_value = characteristic.getValue()[0] & 0xff;
                 //Log.d("CHARVALUE", String.valueOf(lsb));
@@ -174,8 +180,8 @@ public class BluetoothLeService extends Service {
                     }
 
                     else if (device_context == "Chrome") {
-                        startActivity(instagramIntent);
-                        device_context = "Instagram";
+                        startActivity(cameraIntent);
+                        device_context = "Camera";
                     }
 
                     else if (device_context == "Instagram") {

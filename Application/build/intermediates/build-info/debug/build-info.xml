@@ -2,13 +2,13 @@
 <instant-run
     abi="arm64-v8a,armeabi-v7a,armeabi"
     api-level="28"
-    build-mode="HOT_WARM"
+    build-mode="COLD"
     density="420dpi"
     format="10"
     plugin-version="3.2.1"
-    timestamp="1555979501667"
+    timestamp="1556047183926"
     token="-8478417407787601803"
-    verifier="COMPATIBLE" >
+    verifier="COLD_SWAP_REQUESTED" >
 
     <task
         name="javac"
@@ -23,22 +23,15 @@
         name="verifier"
         duration="0" />
 
-    <artifact
-        location="C:\Users\AznIn\AndroidStudioProjects\android-BluetoothLeGatt-fork\Application\build\intermediates\resources\instant-run\debug\resources-debug.apk"
-        type="SPLIT" />
-
     <build
         build-mode="FULL"
-        timestamp="1555976077157"
+        timestamp="1556045493275"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
-            location="C:\Users\AznIn\AndroidStudioProjects\android-BluetoothLeGatt-fork\Application\build\intermediates\resources\instant-run\debug\resources-debug.apk"
-            type="SPLIT" />
-        <artifact
-            location="C:\Users\AznIn\AndroidStudioProjects\android-BluetoothLeGatt-fork\Application\build\intermediates\split-apk\debug\slices\slice_4.apk"
-            type="SPLIT" />
-        <artifact
             location="C:\Users\AznIn\AndroidStudioProjects\android-BluetoothLeGatt-fork\Application\build\intermediates\split-apk\debug\slices\slice_1.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Users\AznIn\AndroidStudioProjects\android-BluetoothLeGatt-fork\Application\build\intermediates\resources\instant-run\debug\resources-debug.apk"
             type="SPLIT" />
         <artifact
             location="C:\Users\AznIn\AndroidStudioProjects\android-BluetoothLeGatt-fork\Application\build\intermediates\split-apk\debug\slices\slice_8.apk"
@@ -62,6 +55,9 @@
             location="C:\Users\AznIn\AndroidStudioProjects\android-BluetoothLeGatt-fork\Application\build\intermediates\split-apk\debug\slices\slice_0.apk"
             type="SPLIT" />
         <artifact
+            location="C:\Users\AznIn\AndroidStudioProjects\android-BluetoothLeGatt-fork\Application\build\intermediates\split-apk\debug\slices\slice_4.apk"
+            type="SPLIT" />
+        <artifact
             location="C:\Users\AznIn\AndroidStudioProjects\android-BluetoothLeGatt-fork\Application\build\intermediates\split-apk\debug\slices\slice_2.apk"
             type="SPLIT" />
         <artifact
@@ -73,19 +69,20 @@
     </build>
     <build
         build-mode="COLD"
-        timestamp="1555978640104"
-        verifier="R_CLASS_CHANGE" >
+        ir-eligibility="R_CLASS_CHANGE"
+        timestamp="1556045978335"
+        verifier="COLD_SWAP_REQUESTED" >
         <artifact
-            location="C:\Users\AznIn\AndroidStudioProjects\android-BluetoothLeGatt-fork\Application\build\intermediates\split-apk\debug\slices\slice_9.apk"
+            location="C:\Users\AznIn\AndroidStudioProjects\android-BluetoothLeGatt-fork\Application\build\intermediates\split-apk\debug\slices\slice_0.apk"
             type="SPLIT" />
         <artifact
             location="C:\Users\AznIn\AndroidStudioProjects\android-BluetoothLeGatt-fork\Application\build\intermediates\split-apk\debug\slices\slice_2.apk"
             type="SPLIT" />
         <artifact
-            location="C:\Users\AznIn\AndroidStudioProjects\android-BluetoothLeGatt-fork\Application\build\intermediates\split-apk\debug\slices\slice_0.apk"
+            location="C:\Users\AznIn\AndroidStudioProjects\android-BluetoothLeGatt-fork\Application\build\intermediates\split-apk\debug\slices\slice_1.apk"
             type="SPLIT" />
         <artifact
-            location="C:\Users\AznIn\AndroidStudioProjects\android-BluetoothLeGatt-fork\Application\build\intermediates\split-apk\debug\slices\slice_1.apk"
+            location="C:\Users\AznIn\AndroidStudioProjects\android-BluetoothLeGatt-fork\Application\build\intermediates\split-apk\debug\slices\slice_4.apk"
             type="SPLIT" />
         <artifact
             location="C:\Users\AznIn\AndroidStudioProjects\android-BluetoothLeGatt-fork\Application\build\intermediates\split-apk\debug\slices\slice_5.apk"
@@ -94,19 +91,23 @@
             location="C:\Users\AznIn\AndroidStudioProjects\android-BluetoothLeGatt-fork\Application\build\intermediates\split-apk\debug\slices\slice_6.apk"
             type="SPLIT" />
         <artifact
-            location="C:\Users\AznIn\AndroidStudioProjects\android-BluetoothLeGatt-fork\Application\build\intermediates\split-apk\debug\slices\slice_4.apk"
+            location="C:\Users\AznIn\AndroidStudioProjects\android-BluetoothLeGatt-fork\Application\build\intermediates\split-apk\debug\slices\slice_8.apk"
             type="SPLIT" />
         <artifact
-            location="C:\Users\AznIn\AndroidStudioProjects\android-BluetoothLeGatt-fork\Application\build\intermediates\split-apk\debug\slices\slice_8.apk"
+            location="C:\Users\AznIn\AndroidStudioProjects\android-BluetoothLeGatt-fork\Application\build\intermediates\split-apk\debug\slices\slice_9.apk"
             type="SPLIT" />
     </build>
     <build
-        build-mode="HOT_WARM"
-        timestamp="1555979501667"
-        verifier="COMPATIBLE" >
+        build-mode="COLD"
+        timestamp="1556046879752"
+        verifier="COLD_SWAP_REQUESTED" >
         <artifact
             location="C:\Users\AznIn\AndroidStudioProjects\android-BluetoothLeGatt-fork\Application\build\intermediates\resources\instant-run\debug\resources-debug.apk"
             type="SPLIT" />
     </build>
+    <build
+        build-mode="COLD"
+        timestamp="1556047183926"
+        verifier="COLD_SWAP_REQUESTED" />
 
 </instant-run>

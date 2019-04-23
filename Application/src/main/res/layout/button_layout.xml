@@ -5,11 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/black">
-
+    android:background="@drawable/background"
+    android:theme="@style/AppTheme1"
+    >
 
     <TextClock
-        android:id="@+id/textClock"
+        android:id="@+id/textClockHour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -17,67 +18,258 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:ems="10"
+        android:format12Hour="hh"
+        android:gravity="right"
+        android:inputType="time"
+        android:textColor="@color/white"
+        android:textSize="120sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.04"
+        tools:text="10" />
+
+
+    <TextClock
+        android:id="@+id/textClockMin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="5dp"
+        android:ems="10"
+        android:format12Hour="mm"
+        android:gravity="right"
+        android:inputType="time"
+        android:textColor="@color/white"
+        android:textSize="120sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textClockHour"
+        app:layout_constraintVertical_bias="0.134"
+        tools:text="55" />
+
+    <TextClock
+        android:id="@+id/textAmPm"
+        android:layout_width="49dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:format12Hour="a"
         android:gravity="center"
         android:inputType="time"
         android:textColor="@color/white"
-        android:textSize="70sp"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textClockHour"
+        app:layout_constraintVertical_bias="0.099"
+        tools:text="AM"/>
+
+    <TextClock
+        android:id="@+id/textDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:format12Hour="MMM dd"
+        android:gravity="right"
+        android:inputType="time"
+        android:textColor="@color/white"
+        android:textSize="50sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textClockHour"
+        app:layout_constraintVertical_bias="0.201"
+        tools:text="Apr 26"/>
+
+
+    <ImageView
+        android:id="@+id/phoneicon"
+        android:clickable="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="9dp"
+        android:src="@drawable/phone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.052"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.047" />
+        app:layout_constraintVertical_bias="0.35000002"
+        android:onClick="onClickPhone"/>
 
-
-    <TextView
-        android:id="@+id/Chrome"
+    <ImageView
+        android:id="@+id/smsicon"
+        android:clickable="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.052"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phoneicon"
+        android:src="@drawable/chat"
+        android:onClick="onClickSMS"/>
+
+    <ImageView
+        android:id="@+id/mailicon"
         android:clickable="true"
-        android:onClick="onClickChrome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.052"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/smsicon"
+        android:src="@drawable/mail"
+        android:onClick="onClickMail"/>
+
+    <ImageView
+        android:id="@+id/chromeicon"
+        android:clickable="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/chrome"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.052"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mailicon"
+        android:onClick="onClickChrome"/>
+
+    <ImageView
+        android:id="@+id/cameraicon"
+        android:clickable="true"
+        android:onClick="onClickCamera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.052"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chromeicon"
+        android:src="@drawable/instagram" />
+
+    <ImageView
+        android:id="@+id/gearicon"
+        android:clickable="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="8dp"
+        android:onClick="onClickSettings"
+        android:src="@drawable/gear"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.052"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cameraicon" />
+
+    <!--
+    <TextView
+        android:id="@+id/textViewPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="Phone"
+        android:textColor="@color/white"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="@+id/phoneicon"
+        app:layout_constraintStart_toEndOf="@+id/phoneicon"
+        app:layout_constraintTop_toTopOf="@+id/phoneicon"
+        tools:text="Phone" />
+
+    <TextView
+        android:id="@+id/textViewTexting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="Text"
+        android:textColor="@color/white"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="@+id/chaticon"
+        app:layout_constraintStart_toEndOf="@+id/chaticon"
+        app:layout_constraintTop_toTopOf="@+id/chaticon"
+        tools:text="Text" />
+
+    <TextView
+        android:id="@+id/textViewMail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="Email"
+        android:textColor="@color/white"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="@+id/mailicon"
+        app:layout_constraintStart_toEndOf="@+id/mailicon"
+        app:layout_constraintTop_toTopOf="@+id/mailicon"
+        tools:text="Email" />
+
+    <TextView
+        android:id="@+id/textViewChrome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
         android:text="Chrome"
         android:textColor="@color/white"
-        android:textSize="50sp"
-        app:layout_constraintBottom_toTopOf="@+id/Instagram"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.104"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="@+id/chromeicon"
+        app:layout_constraintStart_toEndOf="@+id/chromeicon"
+        app:layout_constraintTop_toTopOf="@+id/chromeicon"
+        tools:text="Chrome" />
 
     <TextView
-        android:id="@+id/Instagram"
+        android:id="@+id/textViewInsta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:clickable="true"
-        android:onClick="onClickInstagram"
+        android:layout_marginStart="24dp"
         android:text="Instagram"
         android:textColor="@color/white"
-        android:textSize="50sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.142"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="@+id/instaicon"
+        app:layout_constraintStart_toEndOf="@+id/instaicon"
+        app:layout_constraintTop_toTopOf="@+id/instaicon"
+        tools:text="Instagram" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textViewGear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="200dp"
-        android:clickable="true"
-        android:onClick="onClickSettings"
+        android:layout_marginStart="24dp"
         android:text="Settings"
         android:textColor="@color/white"
-        android:textSize="50sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.12"
-        app:layout_constraintStart_toStartOf="parent" />
-
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="@+id/gearicon"
+        app:layout_constraintStart_toEndOf="@+id/gearicon"
+        app:layout_constraintTop_toTopOf="@+id/gearicon"
+        tools:text="Settings" />
+-->
 
 </android.support.constraint.ConstraintLayout>

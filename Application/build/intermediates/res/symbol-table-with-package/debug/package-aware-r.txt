@@ -369,7 +369,6 @@ color background_floating_material_dark
 color background_floating_material_light
 color background_material_dark
 color background_material_light
-color black
 color blue
 color bright_foreground_disabled_material_dark
 color bright_foreground_disabled_material_light
@@ -627,9 +626,13 @@ drawable abc_textfield_search_activated_mtrl_alpha
 drawable abc_textfield_search_default_mtrl_alpha
 drawable abc_textfield_search_material
 drawable abc_vector_test
+drawable background
+drawable chat
 drawable chrome
 drawable gear
 drawable ic_launcher
+drawable instagram
+drawable mail
 drawable notification_action_background
 drawable notification_bg
 drawable notification_bg_low
@@ -642,16 +645,14 @@ drawable notification_template_icon_bg
 drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
-drawable s
+drawable phone
 drawable tile
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
 id ALT
 id BluetoothPair
 id CTRL
-id Chrome
 id FUNCTION
-id Instagram
 id META
 id SHIFT
 id SYM
@@ -685,9 +686,11 @@ id blocking
 id bottom
 id button4
 id buttonPanel
+id cameraicon
 id cancel_action
 id chains
 id checkbox
+id chromeicon
 id chronometer
 id collapseActionView
 id connection_state
@@ -709,6 +712,7 @@ id expand_activities_button
 id expanded_menu
 id forever
 id gatt_services_list
+id gearicon
 id gone
 id groups
 id home
@@ -725,6 +729,7 @@ id line1
 id line3
 id listMode
 id list_item
+id mailicon
 id media_actions
 id menu_connect
 id menu_disconnect
@@ -744,6 +749,7 @@ id packed
 id parent
 id parentPanel
 id percent
+id phoneicon
 id progress_circular
 id progress_horizontal
 id radio
@@ -769,6 +775,7 @@ id shortcut
 id showCustom
 id showHome
 id showTitle
+id smsicon
 id spacer
 id split_action_bar
 id spread
@@ -786,10 +793,12 @@ id tabMode
 id tag_transition_group
 id text
 id text2
-id textClock
+id textAmPm
+id textClockHour
+id textClockMin
+id textDate
 id textSpacerNoButtons
 id textSpacerNoTitle
-id textView
 id time
 id title
 id titleDividerNoCustom
@@ -916,6 +925,7 @@ style Animation_AppCompat_Dialog
 style Animation_AppCompat_DropDownUp
 style Animation_AppCompat_Tooltip
 style AppTheme
+style AppTheme1
 style Base_AlertDialog_AppCompat
 style Base_AlertDialog_AppCompat_Light
 style Base_Animation_AppCompat_Dialog
