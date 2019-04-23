@@ -256,6 +256,7 @@ public class DeviceControlActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getActionBar().hide();
 
         BluetoothLeService.device_context = "Taktil";
         setContentView(R.layout.button_layout);
@@ -268,12 +269,13 @@ public class DeviceControlActivity extends Activity {
  //       mBluetoothLeService.setCharacteristicNotification(mNotifyCharacteristic, true);
 
         //Chrome Button Set Icon
+        /*
         ImageView chromeIcon = findViewById(R.id.chromeButton);
         chromeIcon.setImageDrawable(getActivityIcon("com.android.chrome", "com.google.android.apps.chrome.Main"));
 
         ImageView instagramIcon = findViewById(R.id.instagramButton);
         instagramIcon.setImageDrawable(getActivityIcon("com.instagram.android", "com.instagram.android.activity.MainTabActivity"));
-
+*/
 
 
         // Sets up UI references.

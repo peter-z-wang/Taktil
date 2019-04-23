@@ -148,7 +148,7 @@ public class BluetoothLeService extends Service {
 
                 else if (touchpad_value == 9 || touchpad_value == 10){
                     startActivity(mailIntent);
-                    pulseMotor();   
+                    pulseMotor();
                 }
 
                 else if (touchpad_value == 13 || touchpad_value == 14) {
