@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/background"
+    android:background="@drawable/background4"
     android:theme="@style/AppTheme1"
     >
 
@@ -92,11 +92,11 @@
         android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textClockHour"
-        app:layout_constraintVertical_bias="0.201"
-        tools:text="Apr 26"/>
+        app:layout_constraintVertical_bias="0.273"
+        tools:text="Apr 26" />
 
 
     <ImageView
