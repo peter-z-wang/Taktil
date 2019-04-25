@@ -719,11 +719,17 @@ id device_name
 id dimensions
 id direct
 id disableHome
+id divider
+id divider10
+id divider12
 id divider2
 id divider3
 id divider4
 id divider5
 id divider6
+id divider7
+id divider8
+id divider9
 id edit_query
 id end
 id end_padder
