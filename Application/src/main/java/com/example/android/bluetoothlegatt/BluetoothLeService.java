@@ -61,6 +61,8 @@ public class BluetoothLeService extends Service {
     private static final int STATE_CONNECTING = 1;
     private static final int STATE_CONNECTED = 2;
 
+    int counter = 0;
+
     public final static String ACTION_GATT_CONNECTED =
             "com.example.bluetooth.le.ACTION_GATT_CONNECTED";
     public final static String ACTION_GATT_DISCONNECTED =
@@ -139,7 +141,7 @@ public class BluetoothLeService extends Service {
             Intent chromeIntent = getPackageManager().getLaunchIntentForPackage(
                     "com.android.chrome");
             Intent cameraIntent = getPackageManager().getLaunchIntentForPackage(
-                    "com.sec.android.app.camera");
+                    "com.instagram.android");
             Intent mailIntent = getPackageManager().getLaunchIntentForPackage(
                     "com.google.android.gm");
             Intent taktilIntent = new Intent(BluetoothLeService.this, DeviceControlActivity.class);
@@ -202,33 +204,68 @@ public class BluetoothLeService extends Service {
                 button4_intent = taktilIntent;
 
 
+
             if (UUID_TOUCHPAD.equals(characteristic.getUuid())) {
                 int touchpad_value = characteristic.getValue()[0];
                 Log.d("CHARVALUE", String.valueOf(touchpad_value));
 
+                if (touchpad_value != 0){
+
+                    if(counter > 4){
+                        counter = 0;
+                    }
+
+                    if(counter == 0)
+                    {
+                        startActivity(chromeIntent);
+                        counter++;
+                    }
+
+                    else if(counter == 1) {
+                        startActivity(callIntent);
+                        counter++;
+                    }
+                    else if (counter ==2){
+                        startActivity(textIntent);
+                        counter++;
+                    }
+
+                    else if (counter == 3){
+                        startActivity(mailIntent);
+                        counter++;
+                    }
+
+                    else if (counter == 4){
+                        startActivity(taktilIntent);
+                        counter++;
+                    }
+
+                }
+                /*
                 if (touchpad_value == 1 || touchpad_value == 2){
                     startActivity(button1_intent);
-                    device_context="Chrome";
+                    b1_intent="Phone";
                     pulseMotor();
                 }
 
                 else if (touchpad_value == 5 || touchpad_value == 6){
-                    startActivity(button2_intent);
-                    device_context="Taktil";
+                    startActivity(button1_intent);
+                    b1_intent="SMS";
                     pulseMotor();
                 }
 
                 else if (touchpad_value == 9 || touchpad_value == 10){
-                    startActivity(button3_intent);
-                    device_context="Mail";
+                    startActivity(button1_intent);
+                    b1_intent="Mail";
                     pulseMotor();
                 }
 
                 else if (touchpad_value == 13 || touchpad_value == 14) {
-                    startActivity(button4_intent);
-                    device_context="Camera";
+                    startActivity(button1_intent);
+                    b1_intent="Taktil";
                     pulseMotor();
                 }
+                */
 
                 else if (touchpad_value == 0){
                     stopMotor();
@@ -237,6 +274,7 @@ public class BluetoothLeService extends Service {
             }
 
             //Button 1 for Taktil Button 2 for ProjectZero
+            /*
             if (UUID_BUTTON_2.equals(characteristic.getUuid())) {
                 int characteristic_value = characteristic.getValue()[0] & 0xff;
                 //Log.d("CHARVALUE", String.valueOf(lsb));
@@ -256,6 +294,7 @@ public class BluetoothLeService extends Service {
                     }
                 }
             }
+            */
 
 /*
             else if (UUID_BUTTON_2.equals(characteristic.getUuid())){

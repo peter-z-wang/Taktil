@@ -118,7 +118,7 @@ public class DeviceControlActivity extends Activity {
 
     public void onClickCamera(View v){
         Intent cameraIntent = getPackageManager().getLaunchIntentForPackage(
-                "com.sec.android.app.camera");
+                "com.instagram.android");
         BluetoothLeService.device_context="Camera";
         startActivity(cameraIntent);
 
