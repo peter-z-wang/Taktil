@@ -51,7 +51,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textClockHour"
-        app:layout_constraintVertical_bias="0.134"
+        app:layout_constraintVertical_bias="0.16000003"
         tools:text="55" />
 
     <TextClock
@@ -101,21 +101,21 @@
 
     <ImageView
         android:id="@+id/phoneicon"
-        android:clickable="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="9dp"
+        android:clickable="true"
+        android:onClick="onClickPhone"
         android:src="@drawable/phone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.052"
+        app:layout_constraintHorizontal_bias="0.051"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.35000002"
-        android:onClick="onClickPhone"/>
+        app:layout_constraintVertical_bias="0.331" />
 
     <ImageView
         android:id="@+id/smsicon"

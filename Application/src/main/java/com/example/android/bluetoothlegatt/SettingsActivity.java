@@ -17,9 +17,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.ExpandableListView;
 import android.widget.SimpleExpandableListAdapter;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +32,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
+import android.preference.PreferenceFragment;
+import android.support.v7.app.AppCompatActivity;
 
 
 public class SettingsActivity extends Activity {
@@ -54,8 +59,9 @@ public class SettingsActivity extends Activity {
     public final static UUID Button_1 =
             UUID.fromString(SampleGattAttributes.Button_1);
 
+    public static String button_code;
 
-
+/*
     public void OnClick(View view) {
         Switch vibrateswitch = (Switch) findViewById(R.id.switch2);
         if (vibrateswitch.isChecked()) {
@@ -64,6 +70,30 @@ public class SettingsActivity extends Activity {
         else {
             mBluetoothLeService.writeRedCharacteristic(0x00);
         }
+    }*/
+
+    public void buttonSet1(View view){
+        Intent bindIntent = new Intent(this, BindButton.class);
+        button_code = "1";
+        startActivityForResult(bindIntent, 1);
+    }
+
+    public void buttonSet2(View view){
+        Intent bindIntent = new Intent(this, BindButton.class);
+        button_code = "2";
+        startActivityForResult(bindIntent, 2);
+    }
+
+    public void buttonSet3(View view){
+        Intent bindIntent = new Intent(this, BindButton.class);
+        button_code = "3";
+        startActivityForResult(bindIntent, 3);
+    }
+
+    public void buttonSet4(View view){
+        Intent bindIntent = new Intent(this, BindButton.class);
+        button_code = "4";
+        startActivityForResult(bindIntent, 4);
     }
 
     public void BluetoothOnClick(View view) {

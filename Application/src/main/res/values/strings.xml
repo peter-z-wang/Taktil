@@ -33,4 +33,5 @@
     <string name="menu_scan">Scan</string>
     <string name="menu_stop">Stop</string>
     <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_bind_button">BindButton</string>
 </resources>

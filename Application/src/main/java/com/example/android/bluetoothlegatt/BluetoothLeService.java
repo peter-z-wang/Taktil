@@ -52,6 +52,10 @@ public class BluetoothLeService extends Service {
     private int mConnectionState = STATE_DISCONNECTED;
 
     public static String device_context = "Taktil";
+    public static String b1_intent = "Chrome";
+    public static String b2_intent = "Taktil";
+    public static String b3_intent = "Mail";
+    public static String b4_intent = "Camera";
 
     private static final int STATE_DISCONNECTED = 0;
     private static final int STATE_CONNECTING = 1;
@@ -127,6 +131,11 @@ public class BluetoothLeService extends Service {
         public void onCharacteristicChanged(BluetoothGatt gatt,
                                             BluetoothGattCharacteristic characteristic) {
             broadcastUpdate(ACTION_DATA_AVAILABLE, characteristic);
+
+            Intent callIntent = new Intent(Intent.ACTION_DIAL);
+
+            Intent textIntent = getPackageManager().getLaunchIntentForPackage(
+                    "com.facebook.orca");
             Intent chromeIntent = getPackageManager().getLaunchIntentForPackage(
                     "com.android.chrome");
             Intent cameraIntent = getPackageManager().getLaunchIntentForPackage(
@@ -135,30 +144,88 @@ public class BluetoothLeService extends Service {
                     "com.google.android.gm");
             Intent taktilIntent = new Intent(BluetoothLeService.this, DeviceControlActivity.class);
 
+            Intent button1_intent = chromeIntent;
+            Intent button2_intent = taktilIntent;
+            Intent button3_intent = mailIntent;
+            Intent button4_intent = cameraIntent;
+
+            if (b1_intent == "Chrome")
+                button1_intent = chromeIntent;
+            else if (b1_intent == "Mail")
+                button1_intent = mailIntent;
+            else if (b1_intent == "Phone")
+                button1_intent = callIntent;
+            else if (b1_intent == "SMS")
+                button1_intent = textIntent;
+            else if (b1_intent == "Camera")
+                button1_intent = cameraIntent;
+            else if(b1_intent == "Taktil")
+                button1_intent = taktilIntent;
+
+            if (b2_intent == "Chrome")
+                button2_intent = chromeIntent;
+            else if (b2_intent == "Mail")
+                button2_intent = mailIntent;
+            else if (b2_intent == "Phone")
+                button2_intent = callIntent;
+            else if (b2_intent == "SMS")
+                button2_intent = textIntent;
+            else if (b2_intent == "Camera")
+                button2_intent = cameraIntent;
+            else if(b2_intent == "Taktil")
+                button2_intent = taktilIntent;
+
+            if (b3_intent == "Chrome")
+                button3_intent = chromeIntent;
+            else if (b3_intent == "Mail")
+                button3_intent = mailIntent;
+            else if (b3_intent == "Phone")
+                button3_intent = callIntent;
+            else if (b3_intent == "SMS")
+                button3_intent = textIntent;
+            else if (b3_intent == "Camera")
+                button3_intent = cameraIntent;
+            else if(b3_intent == "Taktil")
+                button3_intent = taktilIntent;
+
+            if (b4_intent == "Chrome")
+                button4_intent = chromeIntent;
+            else if (b4_intent == "Mail")
+                button4_intent = mailIntent;
+            else if (b4_intent == "Phone")
+                button4_intent = callIntent;
+            else if (b4_intent == "SMS")
+                button4_intent = textIntent;
+            else if (b4_intent == "Camera")
+                button4_intent = cameraIntent;
+            else if(b4_intent == "Taktil")
+                button4_intent = taktilIntent;
+
+
             if (UUID_TOUCHPAD.equals(characteristic.getUuid())) {
                 int touchpad_value = characteristic.getValue()[0];
                 Log.d("CHARVALUE", String.valueOf(touchpad_value));
 
                 if (touchpad_value == 1 || touchpad_value == 2){
-                    startActivity(chromeIntent);
+                    startActivity(button1_intent);
                     device_context="Chrome";
                     pulseMotor();
                 }
 
                 else if (touchpad_value == 5 || touchpad_value == 6){
-                    startActivity(taktilIntent);
+                    startActivity(button2_intent);
                     device_context="Taktil";
                     pulseMotor();
                 }
 
                 else if (touchpad_value == 9 || touchpad_value == 10){
-                    startActivity(mailIntent);
+                    startActivity(button3_intent);
                     device_context="Mail";
                     pulseMotor();
                 }
 
                 else if (touchpad_value == 13 || touchpad_value == 14) {
-                    startActivity(cameraIntent);
+                    startActivity(button4_intent);
                     device_context="Camera";
                     pulseMotor();
                 }

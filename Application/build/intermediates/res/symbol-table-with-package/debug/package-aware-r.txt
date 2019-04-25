@@ -369,6 +369,7 @@ color background_floating_material_dark
 color background_floating_material_light
 color background_material_dark
 color background_material_light
+color black
 color blue
 color bright_foreground_disabled_material_dark
 color bright_foreground_disabled_material_light
@@ -406,6 +407,7 @@ color material_grey_900
 color notification_action_color_filter
 color notification_icon_bg_color
 color notification_material_background_media_default_color
+color offwhite
 color primary_dark_material_dark
 color primary_dark_material_light
 color primary_material_dark
@@ -653,12 +655,21 @@ drawable tile
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
 id ALT
-id BluetoothPair
+id Button1
+id Button2
+id Button3
+id Button4
 id CTRL
+id Camera
+id Chrome
 id FUNCTION
 id META
+id Mail
+id Messenger
+id Phone
 id SHIFT
 id SYM
+id Taktil
 id action0
 id action_bar
 id action_bar_activity_content
@@ -708,6 +719,11 @@ id device_name
 id dimensions
 id direct
 id disableHome
+id divider2
+id divider3
+id divider4
+id divider5
+id divider6
 id edit_query
 id end
 id end_padder
@@ -791,7 +807,6 @@ id start
 id status_bar_latest_event_content
 id submenuarrow
 id submit_area
-id switch2
 id tabMode
 id tag_transition_group
 id text
@@ -802,6 +817,7 @@ id textClockMin
 id textDate
 id textSpacerNoButtons
 id textSpacerNoTitle
+id textView
 id time
 id title
 id titleDividerNoCustom
@@ -846,6 +862,7 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout actionbar_indeterminate_progress
+layout activity_bind_button
 layout activity_settings
 layout button_layout
 layout gatt_services_characteristics
@@ -917,6 +934,7 @@ string menu_stop
 string no_data
 string search_menu_title
 string status_bar_notification_info_overflow
+string title_activity_bind_button
 string title_activity_settings
 string title_devices
 string unknown_characteristic
